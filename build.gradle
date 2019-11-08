@@ -1,0 +1,42 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.9.RELEASE'
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id 'java'
+}
+
+group 'com.kirill'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    jUnitVersion = "5.5.2"
+    swaggerVersion = "2.9.2"
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+
+    implementation(
+            'org.springframework.boot:spring-boot-starter-jetty',
+            "io.springfox:springfox-swagger2:${swaggerVersion}",
+            "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+    )
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'junit', module: 'junit'
+    }
+
+    testCompile("org.junit.jupiter:junit-jupiter:${jUnitVersion}")
+
+}
+
+test {
+    useJUnitPlatform()
+}
