@@ -14,13 +14,13 @@ public class AuctionController {
     @GetMapping("/own-bid")
     @ApiOperation("Retrieves the next bid for the product")
     public int placeNewBid() {
-
+        return 0;
     }
 
     @PostMapping("/round-bids")
     @ApiOperation("Shows the bids of the two bidders for bot")
     public HttpStatus roundBids(@RequestBody @Valid final BidsRequest bidsRequest) {
-
+        return HttpStatus.OK;
     }
 
 }
