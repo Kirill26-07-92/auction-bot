@@ -3,15 +3,21 @@ package com.kirill.auction.bot.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.Objects;
 
 @ApiModel("Contains the bids of the two bidders.")
 public class BidDto {
 
     @ApiModelProperty("The bid of this bidder")
+    @Min(0)
+    @Max(Integer.MAX_VALUE)
     private int own;
 
     @ApiModelProperty("The bid of the other bidder")
+    @Min(0)
+    @Max(Integer.MAX_VALUE)
     private int other;
 
     public BidDto(final int own, final int other) {

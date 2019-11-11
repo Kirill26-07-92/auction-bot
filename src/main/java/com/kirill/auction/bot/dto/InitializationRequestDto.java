@@ -3,15 +3,21 @@ package com.kirill.auction.bot.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.Objects;
 
 @ApiModel("The production quantity and the allowed cash limit for a bidder initialization")
 public class InitializationRequestDto {
 
     @ApiModelProperty("The quantity units")
+    @Min(0)
+    @Max(Integer.MAX_VALUE)
     private int quantity;
 
     @ApiModelProperty("The cash limit")
+    @Min(0)
+    @Max(Integer.MAX_VALUE)
     private int cash;
 
     public InitializationRequestDto(final int quantity, final int cash) {
