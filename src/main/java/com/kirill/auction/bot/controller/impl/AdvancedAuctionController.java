@@ -30,7 +30,7 @@ public class AdvancedAuctionController implements AuctionController {
     @PostMapping("/round-bids")
     @ApiOperation("Shows the bids of the two bidders for bot")
     @Override
-    public HttpStatus roundBids(@Valid BidDto bid) {
+    public HttpStatus roundBids(@Valid final BidDto bid) {
         advancedBiddingService.bids(bid.getOwnBid(), bid.getOtherBid());
         return HttpStatus.OK;
     }

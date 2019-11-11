@@ -22,7 +22,7 @@ public class AdvancedInitializationController implements InitializationControlle
     @PostMapping("/advanced")
     @ApiOperation("Initializes the advanced bidder with the production quantity and the allowed cash limit")
     @Override
-    public HttpStatus initBot(@Valid InitializationRequestDto initializationRequest) {
+    public HttpStatus initBot(@Valid final InitializationRequestDto initializationRequest) {
         advancedBiddingService.init(initializationRequest.getQuantity(), initializationRequest.getCash());
         return HttpStatus.OK;
     }

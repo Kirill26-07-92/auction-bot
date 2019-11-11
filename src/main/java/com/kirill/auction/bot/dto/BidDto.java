@@ -13,24 +13,24 @@ public class BidDto {
     @ApiModelProperty("The bid of this bidder")
     @Min(0)
     @Max(Integer.MAX_VALUE)
-    private int own;
+    private int ownBid;
 
     @ApiModelProperty("The bid of the other bidder")
     @Min(0)
     @Max(Integer.MAX_VALUE)
-    private int other;
+    private int otherBid;
 
-    public BidDto(final int own, final int other) {
-        this.own = own;
-        this.other = other;
+    public BidDto(final int ownBid, final int otherBid) {
+        this.ownBid = ownBid;
+        this.otherBid = otherBid;
     }
 
     public int getOwnBid() {
-        return own;
+        return ownBid;
     }
 
     public int getOtherBid() {
-        return other;
+        return otherBid;
     }
 
     @Override
@@ -38,13 +38,13 @@ public class BidDto {
         if (this == o) return true;
         if (!(o instanceof BidDto)) return false;
         BidDto that = (BidDto) o;
-        return own == that.own &&
-                other == that.other;
+        return ownBid == that.ownBid &&
+                otherBid == that.otherBid;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(own, other);
+        return Objects.hash(ownBid, otherBid);
     }
 
 }
