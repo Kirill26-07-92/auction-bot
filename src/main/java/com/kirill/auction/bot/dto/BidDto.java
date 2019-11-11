@@ -40,5 +40,5 @@ public class BidDto {
     public int hashCode() {
         return Objects.hash(own, other);
     }
-    
+
 }

@@ -53,7 +53,7 @@ public class AdvancedBiddingService extends AbstractBiddingService {
         }
 
         int previousWinnerBid = WinnerBidCalculator.calculate(bidderHistory);
-        int nextBid =  previousWinnerBid + (int) (previousWinnerBid * AverageRateIncreaseCalculator.calculate(bidderHistory));
+        int nextBid = previousWinnerBid + (int) (previousWinnerBid * AverageRateIncreaseCalculator.calculate(bidderHistory));
         updateQuantity();
         return generateNewBid(nextBid);
     }
