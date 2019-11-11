@@ -1,4 +1,4 @@
-package com.kirill.auction.bot.model;
+package com.kirill.auction.bot.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
 @ApiModel("The production quantity and the allowed cash limit for a bidder initialization")
-public class InitializationRequest {
+public class InitializationRequestDto {
 
     @ApiModelProperty("The quantity units")
     private int quantity;
@@ -14,7 +14,7 @@ public class InitializationRequest {
     @ApiModelProperty("The cash limit")
     private int cash;
 
-    public InitializationRequest(final int quantity, final int cash) {
+    public InitializationRequestDto(final int quantity, final int cash) {
         this.quantity = quantity;
         this.cash = cash;
     }
@@ -30,8 +30,8 @@ public class InitializationRequest {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof InitializationRequest)) return false;
-        InitializationRequest request = (InitializationRequest) o;
+        if (!(o instanceof InitializationRequestDto)) return false;
+        InitializationRequestDto request = (InitializationRequestDto) o;
         return quantity == request.quantity &&
                 cash == request.cash;
     }

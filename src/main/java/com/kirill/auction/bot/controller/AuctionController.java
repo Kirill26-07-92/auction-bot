@@ -1,26 +1,15 @@
 package com.kirill.auction.bot.controller;
 
-import com.kirill.auction.bot.model.BidsRequest;
-import io.swagger.annotations.ApiOperation;
+import com.kirill.auction.bot.dto.BidDto;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 
-@RestController
-@RequestMapping("/api/auction")
-public class AuctionController {
+public interface AuctionController {
 
-    @GetMapping("/own-bid")
-    @ApiOperation("Retrieves the next bid for the product")
-    public int placeNewBid() {
-        return 0;
-    }
+    int placeNewBid();
 
-    @PostMapping("/round-bids")
-    @ApiOperation("Shows the bids of the two bidders for bot")
-    public HttpStatus roundBids(@RequestBody @Valid final BidsRequest bidsRequest) {
-        return HttpStatus.OK;
-    }
+    HttpStatus roundBids(@RequestBody @Valid final BidDto bid);
 
 }
