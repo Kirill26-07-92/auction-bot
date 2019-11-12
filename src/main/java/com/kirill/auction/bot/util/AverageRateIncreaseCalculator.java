@@ -4,24 +4,26 @@ import java.util.List;
 
 public class AverageRateIncreaseCalculator extends AbstractCalculator {
 
-    public static double calculate(final List<List<Integer>> bidderHistory) {
-        double[] roundIncreases = bidderHistory
+    public static int calculate(final List<List<Integer>> bidderHistory) {
+        int[] roundIncreases = bidderHistory
                 .stream()
-                .mapToDouble(
+                .mapToInt(
                         bid -> {
-                            double ownBid = bid.get(OWN_BID_INDEX_HISTORY);
-                            double otherBid = bid.get(OPPONENT_BID_INDEX_HISTORY);
+                            int ownBid = bid.get(OWN_BID_INDEX_HISTORY);
+                            int otherBid = bid.get(OPPONENT_BID_INDEX_HISTORY);
 
                             if (ownBid > otherBid) {
-                                return ((ownBid - otherBid) / ownBid) * 100;
+                                return ownBid - otherBid;
+                            } else if (ownBid < otherBid){
+                                return otherBid - ownBid;
                             } else {
-                                return ((otherBid - ownBid) / ownBid) * 100;
+                                return 0;
                             }
                         }
                 ).toArray();
 
-        double averagePercentRatio = 0.0;
-        for (double roundIncrease : roundIncreases) {
+        int averagePercentRatio = 0;
+        for (int roundIncrease : roundIncreases) {
             averagePercentRatio += roundIncrease;
         }
 
