@@ -6,7 +6,18 @@ public class WinnerBidCalculator extends AbstractCalculator {
 
     public static int calculate(final List<List<Integer>> bidderHistory) {
         final List<Integer> previousBid = bidderHistory.get(bidderHistory.size() - 1);
-        return Integer.compare(previousBid.get(OWN_BID_INDEX_HISTORY), previousBid.get(OPPONENT_BID_INDEX_HISTORY));
+        int ownBid = previousBid.get(OWN_BID_INDEX_HISTORY);
+        int otherBid = previousBid.get(OPPONENT_BID_INDEX_HISTORY);
+
+        int result =  Integer.compare(ownBid, otherBid);
+
+        if (result == 0) {
+            return ownBid;
+        } else if (result < 0) {
+            return otherBid;
+        } else {
+            return ownBid;
+        }
     }
 
 }

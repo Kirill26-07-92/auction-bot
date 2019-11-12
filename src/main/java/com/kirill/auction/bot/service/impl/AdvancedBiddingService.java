@@ -1,6 +1,5 @@
 package com.kirill.auction.bot.service.impl;
 
-import com.kirill.auction.bot.exception.AuctionNotInitException;
 import com.kirill.auction.bot.service.AbstractBiddingService;
 import com.kirill.auction.bot.util.AverageRateIncreaseCalculator;
 import com.kirill.auction.bot.util.MedianCalculator;
@@ -12,11 +11,14 @@ import java.util.Random;
 @Service
 public class AdvancedBiddingService extends AbstractBiddingService {
 
+    private Random random = new Random();
+
     @Override
     public int placeBid() {
-        if (quantityOfItems == 0 && restOfOwnCash == 0 && bidderHistory.isEmpty()) {
-            throw new AuctionNotInitException("Auction was not initialized");
-        } else if ((restOfOwnCash == 0 || quantityOfItems == 0) && !bidderHistory.isEmpty()) {
+
+        isAuctionReady();
+
+        if ((restOfOwnCash == 0 || quantityOfItems == 0) && !bidderHistory.isEmpty()) {
             return 0;
         }
 
@@ -46,14 +48,14 @@ public class AdvancedBiddingService extends AbstractBiddingService {
             return generateNewBid(smallBid);
         }
 
-        if (quantityOfItems <= 10) {
+        if (bidderHistory.size() < 10) {
             int median = MedianCalculator.calculate(bidderHistory);
             updateQuantity();
-            return generateNewBid(median + 2);
+            return generateNewBid(median + random.nextInt(median * 2));
         }
 
         int previousWinnerBid = WinnerBidCalculator.calculate(bidderHistory);
-        int nextBid = previousWinnerBid + (int) (previousWinnerBid * AverageRateIncreaseCalculator.calculate(bidderHistory));
+        int nextBid = previousWinnerBid + (AverageRateIncreaseCalculator.calculate(bidderHistory) * 2);
         updateQuantity();
         return generateNewBid(nextBid);
     }
@@ -69,7 +71,7 @@ public class AdvancedBiddingService extends AbstractBiddingService {
     }
 
     private int generateNewBid(final int bid) {
-        return bid <= restOfOwnCash ? bid : new Random().nextInt(restOfOwnCash);
+        return bid <= restOfOwnCash ? bid : random.nextInt(restOfOwnCash);
     }
 
 }

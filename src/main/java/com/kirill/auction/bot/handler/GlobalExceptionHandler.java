@@ -1,5 +1,6 @@
 package com.kirill.auction.bot.handler;
 
+import com.kirill.auction.bot.exception.AuctionFinishedException;
 import com.kirill.auction.bot.exception.AuctionNotInitException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,13 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public CustomError handle(AuctionNotInitException exception) {
+        return new CustomError(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public CustomError handle(AuctionFinishedException exception) {
         return new CustomError(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
