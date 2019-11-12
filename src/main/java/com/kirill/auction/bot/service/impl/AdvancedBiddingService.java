@@ -19,12 +19,10 @@ public class AdvancedBiddingService extends AbstractBiddingService {
         isAuctionReady();
 
         if (bidderHistory.size() == 0) {
-            updateQuantity();
             return calculateFirstBid();
         }
 
         if (restOfOpponentCash == 0) {
-            updateQuantity();
             return 1;
         }
 
@@ -34,25 +32,21 @@ public class AdvancedBiddingService extends AbstractBiddingService {
 
         int minRoundToWin = remainingQuantity / 2;
         if (minRoundToWin > 0 && restOfOwnCash >= (restOfOpponentCash + 1) * minRoundToWin) {
-            updateQuantity();
             return restOfOpponentCash + 1;
         }
 
         if (isPreviousBidLarge()) {
             int smallBid = (restOfOwnCash / (remainingQuantity / 2)) / 2;
-            updateQuantity();
             return generateNewBid(smallBid);
         }
 
         if (bidderHistory.size() < 10) {
             int median = MedianCalculator.calculate(bidderHistory);
-            updateQuantity();
             return generateNewBid(median + random.nextInt(median * 2));
         }
 
         int previousWinnerBid = WinnerBidCalculator.calculate(bidderHistory);
         int nextBid = previousWinnerBid + (AverageRateIncreaseCalculator.calculate(bidderHistory) * 2);
-        updateQuantity();
         return generateNewBid(nextBid);
     }
 

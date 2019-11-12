@@ -37,6 +37,8 @@ public abstract class AbstractBiddingService implements Bidder {
         currentBids.add(own);
         currentBids.add(other);
         bidderHistory.add(currentBids);
+
+        updateQuantity();
     }
 
     protected void isAuctionReady() {
@@ -55,7 +57,7 @@ public abstract class AbstractBiddingService implements Bidder {
         }
     }
 
-    protected void updateQuantity() {
+    private void updateQuantity() {
         remainingQuantity -= BUYING_QUANTITY_BY_ROUND;
     }
 
