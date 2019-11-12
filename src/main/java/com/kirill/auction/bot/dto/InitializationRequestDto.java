@@ -11,12 +11,12 @@ import java.util.Objects;
 public class InitializationRequestDto {
 
     @ApiModelProperty("The quantity units")
-    @Min(0)
+    @Min(1)
     @Max(Integer.MAX_VALUE)
     private int quantity;
 
     @ApiModelProperty("The cash limit")
-    @Min(0)
+    @Min(1)
     @Max(Integer.MAX_VALUE)
     private int cash;
 
