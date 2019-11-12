@@ -9,7 +9,7 @@ class WinnerBidCalculatorTest extends AbstractCalculatorTest {
     private static final int WINNER_RESULT = 18;
 
     @Test
-    public void shouldPassIfCalculateWinnerResult() {
+    void shouldPassIfCalculateWinnerResult() {
         int result = WinnerBidCalculator.calculate(bidderHistory);
         assertEquals(WINNER_RESULT, result);
     }
