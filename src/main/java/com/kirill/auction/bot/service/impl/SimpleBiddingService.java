@@ -8,7 +8,13 @@ public class SimpleBiddingService extends AbstractBiddingService {
 
     @Override
     public int placeBid() {
-        return 0;
+        isAuctionReady();
+
+        if (restOfOwnCash % 2 != 0) {
+            return 1;
+        } else {
+            return restOfOwnCash / remainingQuantity;
+        }
     }
 
 }
