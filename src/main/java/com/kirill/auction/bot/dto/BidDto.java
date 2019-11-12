@@ -11,12 +11,12 @@ import java.util.Objects;
 public class BidDto {
 
     @ApiModelProperty("The bid of this bidder")
-    @Min(0)
+    @Min(1)
     @Max(Integer.MAX_VALUE)
     private int ownBid;
 
     @ApiModelProperty("The bid of the other bidder")
-    @Min(0)
+    @Min(1)
     @Max(Integer.MAX_VALUE)
     private int otherBid;
 

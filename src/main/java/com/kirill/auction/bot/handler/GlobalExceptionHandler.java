@@ -4,12 +4,14 @@ import com.kirill.auction.bot.exception.AuctionFinishedException;
 import com.kirill.auction.bot.exception.AuctionNotInitException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 @Component
@@ -27,6 +29,18 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public CustomError handle(AuctionFinishedException exception) {
         return new CustomError(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public CustomError handle(MethodArgumentNotValidException exception) {
+        String message = exception.getBindingResult().getFieldErrors()
+                .stream()
+                .map(
+                        fieldError -> fieldError.getField() + " field must must be greater than 0; "
+                ).collect(Collectors.joining()).trim();
+        return new CustomError(HttpStatus.BAD_REQUEST, message);
     }
 
     private static class CustomError {
