@@ -18,10 +18,6 @@ public class AdvancedBiddingService extends AbstractBiddingService {
 
         isAuctionReady();
 
-        if ((restOfOwnCash == 0 || quantityOfItems == 0) && !bidderHistory.isEmpty()) {
-            return 0;
-        }
-
         if (bidderHistory.size() == 0) {
             updateQuantity();
             return calculateFirstBid();
@@ -32,7 +28,7 @@ public class AdvancedBiddingService extends AbstractBiddingService {
             return 1;
         }
 
-        if (quantityOfItems > 0 && quantityOfItems <= 2) {
+        if (remainingQuantity > 0 && remainingQuantity <= 2) {
             return restOfOwnCash;
         }
 
