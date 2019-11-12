@@ -1,5 +1,8 @@
 package com.kirill.auction.bot.service;
 
+import com.kirill.auction.bot.exception.AuctionFinishedException;
+import com.kirill.auction.bot.exception.AuctionNotInitException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,8 @@ public abstract class AbstractBiddingService implements Bidder {
 
     @Override
     public void bids(final int own, final int other) {
+        isAuctionReady();
+
         restOfOwnCash -= own;
         restOfOpponentCash -= other;
 
@@ -32,6 +37,14 @@ public abstract class AbstractBiddingService implements Bidder {
         currentBids.add(own);
         currentBids.add(other);
         bidderHistory.add(currentBids);
+    }
+
+    protected void isAuctionReady() {
+        if (quantityOfItems == 0 && restOfOwnCash == 0 && bidderHistory.isEmpty()) {
+            throw new AuctionNotInitException("Auction was not initialized");
+        } else if (quantityOfItems == 0 || remainingQuantity == 0) {
+            throw new AuctionFinishedException("Auction has finished, to Start - initialize.");
+        }
     }
 
     protected int calculateFirstBid() {
