@@ -9,7 +9,7 @@ public class WinnerBidCalculator extends AbstractCalculator {
         int ownBid = previousBid.get(OWN_BID_INDEX_HISTORY);
         int otherBid = previousBid.get(OPPONENT_BID_INDEX_HISTORY);
 
-        int result =  Integer.compare(ownBid, otherBid);
+        int result = Integer.compare(ownBid, otherBid);
 
         if (result == 0) {
             return ownBid;

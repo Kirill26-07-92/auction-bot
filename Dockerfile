@@ -1,4 +1,4 @@
-FROM openjdk:11.04_11-jdk-alpine
+FROM adoptopenjdk/openjdk11:jdk-11.0.5_10-alpine
 EXPOSE 8080
 ARG JAR_FILE=build/libs/auction-bot-1.0.0-SNAPSHOT.jar
 ADD ${JAR_FILE} /auction-bot.jar

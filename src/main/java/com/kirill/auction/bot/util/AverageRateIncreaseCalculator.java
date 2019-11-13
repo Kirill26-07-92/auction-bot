@@ -14,7 +14,7 @@ public class AverageRateIncreaseCalculator extends AbstractCalculator {
 
                             if (ownBid > otherBid) {
                                 return ownBid - otherBid;
-                            } else if (ownBid < otherBid){
+                            } else if (ownBid < otherBid) {
                                 return otherBid - ownBid;
                             } else {
                                 return 0;
@@ -26,7 +26,6 @@ public class AverageRateIncreaseCalculator extends AbstractCalculator {
         for (int roundIncrease : roundIncreases) {
             averagePercentRatio += roundIncrease;
         }
-
         return averagePercentRatio / roundIncreases.length;
     }
 

@@ -4,8 +4,6 @@ import com.kirill.auction.bot.exception.AuctionNotInitException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Random;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class AdvancedBiddingServiceTest extends AdvancedBiddingService {
@@ -14,46 +12,46 @@ class AdvancedBiddingServiceTest extends AdvancedBiddingService {
     private static final int OTHER_BID = 4;
     private static final int FIRST_BID = 2;
     private static final int MIN_BID = 1;
-
-    private Random random = new Random();
+    private static final int INIT_CASH = 1000;
+    private static final int INIT_QUANTITY = 100;
 
     @AfterEach
-    public void cleanAuction() {
+    void cleanAuction() {
         super.init(0, 0);
     }
 
     @Test
-    public void throwExceptionIfPlaceBidWithoutInit() {
+    void throwExceptionIfPlaceBidWithoutInit() {
         assertThrows(AuctionNotInitException.class, super::placeBid);
     }
 
     @Test
-    public void throwExceptionIfAddBidsWithoutInit() {
+    void throwExceptionIfAddBidsWithoutInit() {
         assertThrows(AuctionNotInitException.class, () -> super.bids(OWN_BID, OTHER_BID));
     }
 
     @Test
-    public void shouldPassIfFirstBidCalculated() {
+    void shouldPassIfFirstBidCalculated() {
         initAuctionWithEmptyHistory();
         assertEquals(FIRST_BID, super.placeBid());
     }
 
     @Test
-    public void shouldPassIfPlaceMinBidWhenOpponentCashZero() {
+    void shouldPassIfPlaceMinBidWhenOpponentCashZero() {
         initAuctionWithHistory();
         restOfOpponentCash = 0;
         assertEquals(MIN_BID, super.placeBid());
     }
 
     @Test
-    public void shouldPassIfBidEqualsRestOfOwnCash() {
+    void shouldPassIfBidEqualsRestOfOwnCash() {
         initAuctionWithHistory();
         remainingQuantity = 1;
         assertEquals(restOfOwnCash, super.placeBid());
     }
 
     @Test
-    public void shouldPassIfRoundToWinnConditions() {
+    void shouldPassIfRoundToWinnConditions() {
         initAuctionWithHistory();
         restOfOpponentCash = 1;
         remainingQuantity = 4;
@@ -61,7 +59,7 @@ class AdvancedBiddingServiceTest extends AdvancedBiddingService {
     }
 
     @Test
-    public void shouldPassIfReturnSmallBidIfPreviousLarge() {
+    void shouldPassIfReturnSmallBidIfPreviousLarge() {
         initAuctionWithHistory();
         super.bids(restOfOwnCash / 2, OTHER_BID);
         int smallBid = (restOfOwnCash / (remainingQuantity / 2)) / 2;
@@ -69,7 +67,7 @@ class AdvancedBiddingServiceTest extends AdvancedBiddingService {
     }
 
     private void initAuctionWithEmptyHistory() {
-        super.init(random.nextInt(Integer.MAX_VALUE), random.nextInt(Integer.MAX_VALUE));
+        super.init(INIT_CASH, INIT_QUANTITY);
     }
 
     private void initAuctionWithHistory() {
