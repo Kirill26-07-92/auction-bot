@@ -8,7 +8,7 @@ import java.util.List;
 
 abstract class AbstractCalculatorTest {
 
-    protected static List<List<Integer>> bidderHistory;
+    static List<List<Integer>> bidderHistory;
 
     @BeforeAll
     static void createBidderHistory() {
