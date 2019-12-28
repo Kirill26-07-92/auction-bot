@@ -12,13 +12,7 @@ public class AverageRateIncreaseCalculator extends AbstractCalculator {
                             int ownBid = bid.get(OWN_BID_INDEX_HISTORY);
                             int otherBid = bid.get(OPPONENT_BID_INDEX_HISTORY);
 
-                            if (ownBid > otherBid) {
-                                return ownBid - otherBid;
-                            } else if (ownBid < otherBid) {
-                                return otherBid - ownBid;
-                            } else {
-                                return 0;
-                            }
+                            return Math.abs(ownBid - otherBid);
                         }
                 ).toArray();
 

@@ -21,8 +21,7 @@ public class MedianCalculator extends AbstractCalculator {
             if (bidderHistory.size() <= 1) {
                 median = bids[totalElements / 2];
             } else {
-                double sumOfMiddleElements = bids[totalElements / 2] + bids[totalElements / 2 + 1];
-                median = sumOfMiddleElements / 2;
+                median = (bids[totalElements / 2] + bids[totalElements / 2 + 1]) / 2;
             }
         } else {
             median = bids[totalElements / 2];
