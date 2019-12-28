@@ -11,13 +11,7 @@ public class WinnerBidCalculator extends AbstractCalculator {
 
         int result = Integer.compare(ownBid, otherBid);
 
-        if (result == 0) {
-            return ownBid;
-        } else if (result < 0) {
-            return otherBid;
-        } else {
-            return ownBid;
-        }
+        return result < 0 ? otherBid : ownBid;
     }
 
 }
